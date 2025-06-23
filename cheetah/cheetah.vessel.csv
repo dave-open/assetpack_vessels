@@ -1,0 +1,86 @@
+#      ___ _               _        _
+#     / __\ |__   ___  ___| |_ __ _| |__
+#    / /  | '_ \ / _ \/ _ \ __/ _` | '_ \
+#   / /___| | | |  __/  __/ || (_| | | | |
+#   \____/|_| |_|\___|\___|\__\__	_|_| |_|
+#
+#
+# General properties
+#
+deck_elevation	4	# elevation of the deck relative to the origin. Typically the distance between keel and deck
+keel_elevation	0	# elevation of the keel relative to the origin. Typically 0
+#
+# For creating 2D sketches
+#
+# for creation of the tank plan we slice the 3d model as a fixed elevation.
+#
+tank_cut_elevation	3.9	# elevation to slice barge to create tank layout. Just 0.5m below the top of the tanks is usually a good idea
+barge_cut_elevations	2	3.9	# elevation(s) to slice the visual of the barge for 2d visuals
+# For deck layout we just use a rectangle (not a slice becuase we need to have measurements in the sketch)
+width	46	# width of the barge. For sketches of deck-layout
+length	210	# length of the barge. For sketches of deck-layout
+# For wind and current force the following coefficients are used: https://en.wikipedia.org/wiki/Drag_coefficient
+Cd_air_long	1.2
+Cd_water_long	1.2
+Cd_air_trans	1.2
+Cd_water_trans	1.2
+#
+#
+*BallastTanks
+#
+# Ballast-tanks are Tank nodes. They are automatically included in the ballast-system solver.
+# The total volume of the tank is derived from the geometry. Use permeability to tune the capacity.
+#
+# Name	resource	permeability	density	Fill-pct	off-x	off-y	off-z	rot-x	rot-y	rot-z	scale-x	scale-y	scale-z	invert-normals
+7c	res: cheetah/geometry/c7.stl	1	1	0	0	0	0	0	0	0	1	1	1	false
+8c	res: cheetah/geometry/c8.stl	1	1	0	0	0	0	0	0	0	1	1	1	false
+9c	res: cheetah/geometry/c9.stl	1	1	0	0	0	0	0	0	0	1	1	1	false
+10c	res: cheetah/geometry/c10.stl	1	1	0	0	0	0	0	0	0	1	1	1	false
+1ps	res: cheetah/geometry/ps1.stl	1	1	0	0	0	0	0	0	0	1	1	1	false
+2ps	res: cheetah/geometry/ps2.stl	1	1	0	0	0	0	0	0	0	1	1	1	false
+3ps	res: cheetah/geometry/ps3.stl	1	1	0	0	0	0	0	0	0	1	1	1	false
+4ps	res: cheetah/geometry/ps4.stl	1	1	0	0	0	0	0	0	0	1	1	1	false
+5ps	res: cheetah/geometry/ps5.stl	1	1	0	0	0	0	0	0	0	1	1	1	false
+6ps	res: cheetah/geometry/ps6.stl	1	1	0	0	0	0	0	0	0	1	1	1	false
+7ps	res: cheetah/geometry/ps7.stl	1	1	0	0	0	0	0	0	0	1	1	1	false
+8ps	res: cheetah/geometry/ps8.stl	1	1	0	0	0	0	0	0	0	1	1	1	false
+9ps	res: cheetah/geometry/ps9.stl	1	1	0	0	0	0	0	0	0	1	1	1	false
+10ps	res: cheetah/geometry/ps10.stl	1	1	0	0	0	0	0	0	0	1	1	1	false
+1sb	res: cheetah/geometry/sb1.stl	1	1	0	0	0	0	0	0	0	1	1	1	false
+2sb	res: cheetah/geometry/sb2.stl	1	1	0	0	0	0	0	0	0	1	1	1	false
+3sb	res: cheetah/geometry/sb3.stl	1	1	0	0	0	0	0	0	0	1	1	1	false
+4sb	res: cheetah/geometry/sb4.stl	1	1	0	0	0	0	0	0	0	1	1	1	false
+5sb	res: cheetah/geometry/sb5.stl	1	1	0	0	0	0	0	0	0	1	1	1	false
+6sb	res: cheetah/geometry/sb6.stl	1	1	0	0	0	0	0	0	0	1	1	1	false
+7sb	res: cheetah/geometry/sb7.stl	1	1	0	0	0	0	0	0	0	1	1	1	false
+8sb	res: cheetah/geometry/sb8.stl	1	1	0	0	0	0	0	0	0	1	1	1	false
+9sb	res: cheetah/geometry/sb9.stl	1	1	0	0	0	0	0	0	0	1	1	1	false
+10sb	res: cheetah/geometry/sb10.stl	1	1	0	0	0	0	0	0	0	1	1	1	false
+#
+*Draft_measurement_points
+#
+# Define points at keel elevation. Draft is then the current depth of these points
+# name	pos-x	pos-y	pos-z
+ps_bow	180	-23	0
+sb_bow	180	23	0
+ps_stern	10	-23	0
+sb_stern	10	23	0
+#
+*Buoyancy
+#
+# Name	resource	off-x	off-y	off-z	rot-x	rot-y	rot-z	scale-x	scale-y	scale-z	invert-normals
+Hull	res: cheetah/geometry/buoyancy cheetah.obj	0	0	0	0	0	0	1	1	1	false
+#
+*Visuals
+#
+# Name	resource	off-x	off-y	off-z	rot-x	rot-y	rot-z	scale-x	scale-y	scale-z
+Hull	res: cheetah/cheetah.glb	0	0	0	0	0	0	1	1	1
+#
+*LightWeight
+#
+# This defined the weight and inertia of the barge. Inertia is only used when doing dynamics.
+#
+#	Footprint	Dynamics
+# Name	mass [mT]	Cog-x	Cog-y	Cog-z	Fp-elevation	aft	front	sb	ps	rxx	ryy	rzz
+#	mT	m	m	m	m	m	m	m	m	m	m	m
+main	23000	105	0	2.5	2	5	70	-7.9	7.9	3	2	3
