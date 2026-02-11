@@ -1,0 +1,55 @@
+# Cat24
+#
+# Cat24 Model
+#
+# Dynamics not yet included
+#    [ ] ADD INERTIA IF YOU WANT TO DO DYNAMICS	AS GUIDANCE:
+#        rxx = 0.3..0.4 * WIDTH
+#        ryy = rzz = 0.22 ... 0.28 * LENGTH
+#
+deck_elevation	3.65
+keel_elevation	0
+tank_cut_elevation	0
+barge_cut_elevations	4.4
+width	8.75
+length	26
+Cd_air_long	1.2
+Cd_water_long	1.2
+Cd_air_trans	1.2
+Cd_water_trans	1.2
+
+# Ballast tanks
+# Name	resource	permeability	density	Fill-pct	off-x	off-y	off-z	rot-x	rot-y	rot-z	scale-x	scale-y	scale-z	invert-normals
+# Use density = -1 for same density as outside water
+# Use permeability to fine-tune effective volume of the tank
+#*BallastTanks
+
+
+# Name	resource	off-x	off-y	off-z	rot-x	rot-y	rot-z	scale-x	scale-y	scale-z	invert-normals
+*Buoyancy
+cat24_buoyancy	res: cat24/buoyancy.stl	0	0	0	0	0	0	1	1	1	False
+
+
+# Draft measurement points
+*Draft_measurement_points
+AFT	0	0	0
+BOW	26	0	0
+PS	13	4.375	0
+SB	13	-4.375	0
+
+
+# Visual
+# Name	resource	off-x	off-y	off-z	rot-x	rot-y	rot-z	scale-x	scale-y	scale-z
+*Visuals
+cat24_visual	res: cat24/cat24.glb	0	0	0	0	0	0	1	1	1
+
+
+*LightWeight
+#	Footprint	Dynamics
+# Name	mass [mT]	Cog-x	Cog-y	Cog-z	Fp-elevation	aft	front	sb	ps	rxx	ryy	rzz
+#	mT	m	m	m	m	m	m	m	m	m	m	m
+lightweight	200	11	0	2	0	0	26	-4.735	4.375	0	0	0
+
+
+#*Bollards
+# name	Pos-x	Pos-y	Pos-z	capacity	capcity-x	capcity-y

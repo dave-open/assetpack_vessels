@@ -1,0 +1,72 @@
+# Auto-generated Python code
+# By ruben
+# Time: 2025-06-24 12:33:09 UTC
+
+# To be able to distinguish the important number (eg: fixed positions) from
+# non-important numbers (eg: a position that is solved by the static solver) we use a dummy-function called 'solved'.
+# For anything written as solved(number) that actual number does not influence the static solution
+
+def solved(number):
+    return number
+
+
+# Environment settings
+s.g = 9.80665
+s.waterlevel = 0.0
+s.rho_air = 0.00126
+s.rho_water = 1.025
+s.wind_direction = 0.0
+s.wind_velocity = 0.0
+s.current_direction = 0.0
+s.current_velocity = 0.0
+
+
+
+# code for Body
+s.new_rigidbody(name='Body',
+                mass=200,
+                cog=(11.2,
+                     0,
+                     2),
+           position=(solved(0.0),
+                     solved(0.0),
+                     solved(-1.416097584889247)),
+           rotation=(solved(-5.25722e-16),
+                     solved(0.123485),
+                     solved(2.02999e-13)),
+           inertia_radii = (2, 5, 5),
+           fixed =(False, False, False, False, False, False),
+                )
+
+# code for Buoyancy
+mesh = s.new_buoyancy(name='Buoyancy',
+          parent='Body')
+mesh.trimesh.load_file(r'res: cat24/geometry/buoyancy.stl', scale = (1.0,1.0,1.0), rotation = (0.0,0.0,0.0), offset = (0.0,0.0,0.0))
+
+# code for Visual
+s.new_visual(name='Visual',
+            parent='Body',
+            path=r'res: cat24/ctv_low.stl',
+            offset=(0, 0, 0), 
+            rotation=(0, 0, 0), 
+            scale=(1, 1, 1) )
+
+# code for WaveInteraction
+s.new_waveinteraction(name='WaveInteraction',
+            parent='Body',
+            path=r'res: cat24/hyd/cat24.dhyd',
+            offset=(13.0, 0.0, 1.5) )
+
+# code for Visual2
+s.new_visual(name='Visual2',
+            parent='Body',
+            path=r'res: cat24/hyd/grid.stl',
+            offset=(13, 0, 1.5), 
+            rotation=(0, 0, 0), 
+            scale=(1, 1, 1) )
+
+s['Visual']._visible = False
+# Timeline
+t = TimeLine(s)
+s.t = t  # and register timeline in scene
+s.rao_requests = RaoRequests()
